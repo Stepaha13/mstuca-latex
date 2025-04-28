@@ -320,18 +320,27 @@
 
 ## 9. Набор исходного кода
 ```latex
-\lstset{
-  language=Python,
-  basicstyle=\ttfamily\small,
-  keywordstyle=\color{blue},
-  commentstyle=\color{gray},
-  frame=single,
-  numbers=left
+\begin{codewrap}
+\begin{minted}[fontsize=\footnotesize]{cpp}
+// Код для расчета быстрого квадратного корня.
+float Q_rsqrt( float number )
+{
+    long i;
+    float x2, y;
+    const float threehalfs = 1.5F;
+
+    x2 = number * 0.5F;
+    y  = number;
+    i  = * ( long * ) &y;         // evil floating point bit level hack
+    i  = 0x5f3759df - ( i >> 1 ); // what the fuck?
+    y  = * ( float * ) &i;
+    y  = y * ( threehalfs - ( x2 * y * y ) );
+
+    return y;
 }
-\begin{lstlisting}
-def compute(x):
-    return x**2 + 2*x + 1
-\end{lstlisting}
+\end{minted}
+\caption{}\label{src:quake}
+\end{codewrap}
 ```
 > Для подсветки синтаксиса на основе Pygments – пакет ```minted```.
 
